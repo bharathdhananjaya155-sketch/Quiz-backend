@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive Quiz Application — Test your knowledge with timed multiple-choice questions.">
+    <title>QuizMaster — Interactive Quiz App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ==================== START SCREEN ==================== -->
+    <section id="start-screen" class="screen active">
+        <div class="container glass-card">
+            <div class="logo-icon">🧠</div>
+            <h1>QuizMaster</h1>
+            <p class="subtitle">Challenge yourself with timed quizzes. Pick a category, set the number of questions, and test your knowledge!</p>
+
+            <form id="quiz-setup-form" class="setup-form">
+                <div class="form-group">
+                    <label for="category-select">Category</label>
+                    <select id="category-select" required>
+                        <option value="" disabled selected>Loading categories…</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="num-questions">Number of Questions</label>
+                    <input type="number" id="num-questions" min="1" max="20" value="5" required>
+                </div>
+                <button type="submit" id="start-btn" class="btn btn-primary">
+                    <span>Start Quiz</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+            </form>
+
+            <!-- Loading overlay inside start screen -->
+            <div id="start-loading" class="loading-overlay hidden">
+                <div class="spinner"></div>
+                <p>Creating your quiz…</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== QUIZ SCREEN ==================== -->
+    <section id="quiz-screen" class="screen">
+        <div class="container glass-card quiz-card">
+            <!-- Header -->
+            <div class="quiz-header">
+                <span id="progress-text" class="progress-text">Question 1 of 5</span>
+                <span id="score-badge" class="score-badge">Score: 0</span>
+            </div>
+
+            <!-- Timer Bar -->
+            <div class="timer-bar-track">
+                <div id="timer-bar" class="timer-bar-fill"></div>
+            </div>
+            <p id="timer-text" class="timer-text">15s</p>
+
+            <!-- Question -->
+            <h2 id="question-text" class="question-text">Loading question…</h2>
+
+            <!-- Options -->
+            <div id="options-container" class="options-container">
+                <!-- Populated dynamically -->
+            </div>
+
+            <!-- Next Button -->
+            <button id="next-btn" class="btn btn-primary next-btn hidden">
+                <span>Next Question</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- ==================== RESULT SCREEN ==================== -->
+    <section id="result-screen" class="screen">
+        <div class="container glass-card result-card">
+            <div id="result-icon" class="result-icon">🏆</div>
+            <h1 id="result-title">Quiz Complete!</h1>
+            <p id="result-subtitle" class="result-subtitle">Here's how you did</p>
+
+            <!-- Score Circle -->
+            <div class="score-circle-wrapper">
+                <svg class="score-circle" viewBox="0 0 120 120">
+                    <circle class="score-circle-bg" cx="60" cy="60" r="52"/>
+                    <circle id="score-circle-fill" class="score-circle-fill" cx="60" cy="60" r="52"/>
+                </svg>
+                <div class="score-circle-text">
+                    <span id="score-percent">0%</span>
+                </div>
+            </div>
+
+            <p id="score-detail" class="score-detail">You scored 0 out of 0</p>
+
+            <!-- Question Review -->
+            <div id="review-container" class="review-container"></div>
+
+            <button id="restart-btn" class="btn btn-primary restart-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                <span>Play Again</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Global error toast -->
+    <div id="error-toast" class="error-toast hidden">
+        <span id="error-message"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
